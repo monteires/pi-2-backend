@@ -5,6 +5,7 @@ const cors = require('cors')
 const hpp = require('hpp')
 const errors = require('./utils/errors')
 const errorHandler = require('./controller/error_handler')
+const userRoutes = require('./routes/user.routes')
 
 const app = express();
 
@@ -23,11 +24,16 @@ app.use('/api', rateLimit({
 app.use(hpp())
 
 //Routes
-app.use('/hello-world', (req, res, next) => {
+//home for testing purposes
+app.use('/home', (req, res, next) => {
     res.status(200).json({
-        message: 'success'
+        message: 'Bem-vindo(a) ao início da aplicação.'
     })
 })
+
+app.use('/user', userRoutes)
+
+app.use('/product')
 
 app.use('*', (req, res, next) => {
     next(errors.error404, req, res, next)

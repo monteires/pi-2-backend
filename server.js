@@ -1,11 +1,7 @@
-const dotenv = require('dotenv')
 const app = require('./app')
+const config = require('./config/index').envConfig
 
-dotenv.config({
-    path: './config.env'
-})
-
-const port = process.env.PORT;
+const port = config.PORT
 
 app.listen(port, () => {
     console.log(`http://localhost:${port}/`)

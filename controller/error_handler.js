@@ -1,8 +1,10 @@
+const defaultError = require('../utils/errors').unkknowServerError
+
 module.exports = (err, req, res, next) => {
-    const statusCode = err.statusCode || 500
+    const statusCode = err.statusCode || defaultError.statusCode
 
     res.status(statusCode).json({
-        message: err.message || 'Unknown error.',
-        errorClass: err.errorClass || 'server'
+        message: err.message || defaultError.message,
+        errorClass: err.errorClass || defaultError.errorClass
     })
 }
