@@ -8,5 +8,5 @@ dotenv.config({
 const port = process.env.PORT;
 
 app.listen(port, () => {
-    console.log(`Started application on port ${port}`)
+    console.log(`http://localhost:${port}/`)
 })
