@@ -6,4 +6,6 @@ router.get('/', userController.findAll)
 
 router.get('/:id', userController.findOne)
 
+router.post('/', userController.create)
+
 module.exports = router;

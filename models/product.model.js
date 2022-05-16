@@ -1,29 +1,59 @@
 module.exports = (conn, Sequelize) => {
-    const Produto = conn.define('produto', {
-        nomeProduto: {
+    const Category = require('./category.model')(conn, Sequelize)
+    const PreservationState = require('./preservationState.model')(conn, Sequelize)
+
+    const Product = conn.define('product', {
+        productName: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            field: 'nome_produto'
         },
-        descricao: {
-            type: Sequelize.STRING
+        description: {
+            type: Sequelize.STRING,
+            field: 'descricao'
         },
-        estadoBr: {
-            type: Sequelize.STRING
+        uf: {
+            type: Sequelize.STRING,
+            field: 'estado_br'
         },
-        endereco: {
-            type: Sequelize.STRING
+        address: {
+            type: Sequelize.STRING,
+            field: 'endereco'
         },
-        linkFoto1: {
-            type: Sequelize.STRING
+        photo1: {
+            type: Sequelize.STRING,
+            field: 'link_foto_1'
         },
-        linkFoto2: {
-            type: Sequelize.STRING
+        photo2: {
+            type: Sequelize.STRING,
+            field: 'link_foto_2'
         },
-        linkFoto3: {
-            type: Sequelize.STRING
+        photo3: {
+            type: Sequelize.STRING,
+            field: 'link_foto_3'
+        },
+        categoryId: {
+            type: Sequelize.INTEGER,
+            field: 'fk_categoria',
+            references: {
+                model: Category,
+                key: 'id'
+            }
+        },
+        preservationStateId: {
+            type: Sequelize.INTEGER,
+            field: 'fk_estado_conservacao',
+            references: {
+                model: PreservationState,
+                key: 'id'
+            }
         }
 
-
+    }, {
+        tableName: 'produto',
+        timestamps: true,
+        createdAt: 'created_at',
+        updatedAt: false
     })
-    return Produto;
+    return Product;
 }

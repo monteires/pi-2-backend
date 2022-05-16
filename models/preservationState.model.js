@@ -1,9 +1,13 @@
 module.exports = (conn, Sequelize) => {
-    const EstadoConservacao = conn.define('estadoConservacao', {
-        estadoConservacao: {
+    const PreservationState = conn.define('preservationState', {
+        preservationState: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            field: 'estado_conservacao'
         }
+    }, {
+        tableName: 'estado_conservacao',
+        timestamps: false
     })
-    return EstadoConservacao;
+    return PreservationState;
 }

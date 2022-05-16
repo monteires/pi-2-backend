@@ -10,14 +10,17 @@ module.exports = (conn, Sequelize) => {
             field: 'nome_social'
         },
         cpf: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING(11)
         },
         email: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false,
+            unique: true
         },
         phone: {
-            type: Sequelize.STRING,
-            field: 'telefone'
+            type: Sequelize.STRING(12),
+            field: 'telefone',
+            unique: true
         },
         whatsappLink: {
             type: Sequelize.STRING,
@@ -25,13 +28,13 @@ module.exports = (conn, Sequelize) => {
         },
         hash: {
             type: Sequelize.STRING,
+            allowNull: false,
             field: 'hash_senha'
         }
-
-
     }, {
         tableName: 'usuario',
         timestamps: false
     })
+
     return User;
 }

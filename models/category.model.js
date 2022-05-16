@@ -1,9 +1,13 @@
 module.exports = (conn, Sequelize) => {
-    const Categoria = conn.define('categoria', {
-        categoria: {
+    const Category = conn.define('category', {
+        category: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            field: 'categoria'
         }
+    }, {
+        tableName: 'categoria',
+        timestamps: false
     })
-    return Categoria;
+    return Category;
 }

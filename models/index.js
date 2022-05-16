@@ -21,9 +21,9 @@ const db = {
 }
 
 db.users = require('./user.model')(connection, Sequelize)
-db.products = require('./product.model')(connection, Sequelize)
 db.preservationStates = require('./preservationState.model')(connection, Sequelize)
 db.categories = require('./category.model')(connection, Sequelize)
+db.products = require('./product.model')(connection, Sequelize)
 
 module.exports = db
 
