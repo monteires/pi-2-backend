@@ -1,7 +1,7 @@
 const dotenv = require('dotenv')
 
 dotenv.config({
-    path: '../config.env'
+    path: `${__dirname}/../config.env`
 })
 
 module.exports = {
