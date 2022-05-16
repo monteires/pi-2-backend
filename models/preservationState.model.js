@@ -1,5 +1,5 @@
-module.exports = (sequelize, Sequelize) => {
-    const EstadoConservacao = sequelize.define('estadoConservacao', {
+module.exports = (conn, Sequelize) => {
+    const EstadoConservacao = conn.define('estadoConservacao', {
         estadoConservacao: {
             type: Sequelize.STRING,
             allowNull: false

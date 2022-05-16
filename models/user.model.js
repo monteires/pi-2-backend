@@ -1,11 +1,13 @@
-module.exports = (sequelize, Sequelize) => {
-    const Usuario = sequelize.define('usuario', {
-        nomeCompleto: {
+module.exports = (conn, Sequelize) => {
+    const User = conn.define('user', {
+        name: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            field: 'nome_completo'
         },
-        nomeSocial: {
-            type: Sequelize.STRING
+        socialName: {
+            type: Sequelize.STRING,
+            field: 'nome_social'
         },
         cpf: {
             type: Sequelize.STRING
@@ -13,17 +15,23 @@ module.exports = (sequelize, Sequelize) => {
         email: {
             type: Sequelize.STRING
         },
-        telefone: {
-            type: Sequelize.STRING
+        phone: {
+            type: Sequelize.STRING,
+            field: 'telefone'
         },
         whatsappLink: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            field: 'whatsapp_link'
         },
-        hashSenha: {
-            type: Sequelize.STRING
+        hash: {
+            type: Sequelize.STRING,
+            field: 'hash_senha'
         }
 
 
+    }, {
+        tableName: 'usuario',
+        timestamps: false
     })
-    return Usuario;
+    return User;
 }

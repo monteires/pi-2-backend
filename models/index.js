@@ -1,6 +1,6 @@
 const dbConfig = require('../config/db.config')
 const Sequelize = require('sequelize')
-const sequelize = new Sequelize(
+const connection = new Sequelize(
     dbConfig.DB,
     dbConfig.USER,
     dbConfig.PASSWORD, {
@@ -17,10 +17,13 @@ const sequelize = new Sequelize(
 
 const db = {
     Sequelize: Sequelize,
-    sequelize: sequelize
+    sequelize: connection
 }
 
-db.someModel = require('/path/to/model')(sequelize, Sequelize)
+db.users = require('./user.model')(connection, Sequelize)
+db.products = require('./product.model')(connection, Sequelize)
+db.preservationStates = require('./preservationState.model')(connection, Sequelize)
+db.categories = require('./category.model')(connection, Sequelize)
 
 module.exports = db
 

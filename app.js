@@ -31,9 +31,9 @@ app.use('/home', (req, res, next) => {
     })
 })
 
-app.use('/user', userRoutes)
+app.use('/users', userRoutes)
 
-app.use('/product')
+//app.use('/product')
 
 app.use('*', (req, res, next) => {
     next(errors.error404, req, res, next)
