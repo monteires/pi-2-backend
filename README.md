@@ -1,14 +1,22 @@
+## Overview
+
 Project using npm 6.14.10 and node 14.15.4
 
-Run with the following
+## Running the project
 
-npm install 
+* Create a config.env file based on config.env.example
 
-node server.js
+* npm install 
 
-Using 
+* node server.js
+
+## References
+
 _https://github.com/MoathShraim/Nodejs-rest-api-project-structure-Express_ 
+
 _https://www.bezkoder.com/node-js-express-sequelize-mysql/_
+
 _https://javascript.plainenglish.io/four-sequelize-associations-you-should-know-415d8d413e1e_
-as example.
+
+
 
