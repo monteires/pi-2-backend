@@ -1,7 +1,9 @@
 Project using npm 6.14.10 and node 14.15.4
 
 Run with the following
+
 npm install 
+
 node server.js
 
 Using 
