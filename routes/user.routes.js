@@ -8,4 +8,6 @@ router.get('/:id', userController.findOne)
 
 router.post('/', userController.create)
 
+router.post('/login', userController.login)
+
 module.exports = router;

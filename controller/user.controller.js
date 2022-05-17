@@ -22,9 +22,50 @@ const encrypt = (password) => {
     return `encrypted password here ${password}`
 }
 
-exports.create = (req, res) => {
-    console.log(req.body)
+const findHashByEmail = (email) => {
+    return User.findOne({
+        attributes: ['email', 'hash'],
+        where: {
+            email: email
+        }
+    })
+}
 
+exports.login = (req, res) => {
+    const { email, password } = req.body
+    const passwordHash = encrypt(password)
+
+    if(!email || !password) {
+        res.status(400).send({
+            message: `Missing parameters`
+        })
+
+        return;
+    }
+
+    findHashByEmail(email).then(userCredentials => {
+        if(!userCredentials.email) {
+            res.status(404).send({
+                message: `User not found: ${email}`
+            })
+
+            return;
+        } else if(userCredentials.hash != passwordHash) {
+            res.status(401).send({
+                message: `Invalid credentials`
+            })
+
+            return;
+        } else {
+            console.log('session initiated')
+            /** implement session */
+        }
+    })
+
+
+}
+
+exports.create = (req, res) => {
     isValid(req.body).then(data => {
         if(!data.valid) {
             res.status(400).send({

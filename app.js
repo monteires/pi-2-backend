@@ -6,14 +6,25 @@ const hpp = require('hpp')
 const errors = require('./utils/errors')
 const errorHandler = require('./controller/error_handler')
 const userRoutes = require('./routes/user.routes')
+const session = require('express-session')
+const cookieParser = require('cookie-parser')
+const secret = require('./config').envConfig.SESSION_SECRET
 
 const app = express();
 
 app.use(hpp())
 app.use(cors())
-
 app.use(express.json())
-//app.use(express.urlencoded())
+app.use(express.urlencoded({ extended: true }))
+
+app.use(session({
+    secret: secret,
+    saveUninitialized: true,
+    cookie: { maxAge: 360000 },
+    resave: false
+}))
+
+app.use(cookieParser())
 
 //DDOS prevention
 app.use('/', rateLimit({

@@ -1,14 +1,16 @@
 ## Overview
 
-Project using npm 6.14.10 and node 14.15.4, along with express.js and sequelize (mysql)
+RESTful api using npm 6.14.10 and node 14.15.4, along with express.js and sequelize (mysql)
 
 ## Running the project
 
 * Create a config.env file based on config.env.example
 
-* npm install 
+* npm install (only once or when a new dependency is added to the project)
 
-* node server.js
+* Development server with nodemon: npm run dev
+
+* Production server: npm run start
 
 ## References
 
