@@ -1,6 +1,8 @@
 const db = require('../models')
 const User = db.users
 const Op = db.Sequelize.Op
+const session = require('../app').session
+const bcrypt = require('bcrypt')
 
 const isValid = async (userData) => {
     const missingData = []
@@ -17,11 +19,6 @@ const isValid = async (userData) => {
     }
 }
 
-
-const encrypt = (password) => {
-    return `encrypted password here ${password}`
-}
-
 const findHashByEmail = (email) => {
     return User.findOne({
         attributes: ['email', 'hash'],
@@ -31,9 +28,12 @@ const findHashByEmail = (email) => {
     })
 }
 
+const comparePassword = async (password, hash) => {
+    return bcrypt.compare(password, hash)
+}
+
 exports.login = (req, res) => {
     const { email, password } = req.body
-    const passwordHash = encrypt(password)
 
     if(!email || !password) {
         res.status(400).send({
@@ -50,18 +50,36 @@ exports.login = (req, res) => {
             })
 
             return;
-        } else if(userCredentials.hash != passwordHash) {
-            res.status(401).send({
-                message: `Invalid credentials`
-            })
+        } 
 
-            return;
-        } else {
-            console.log('session initiated')
-            /** implement session */
-        }
+        comparePassword(password, userCredentials.hash).then(val => {
+            if(!val) {
+                res.status(401).send({
+                    message: `Invalid credentials`
+                })
+    
+                return;
+            } 
+
+            res.status(200).send({
+                message: `Success! Welcome, ${email}`
+            })
+        }).catch(err => {
+            res.status(500).send({
+                message: `Internal server error: ${err}`
+            })
+        })
+        
+    }).catch(err => {
+        res.status(500).send({
+            message: `Internal server error: ${err}`
+        })
     })
 
+
+}
+
+exports.logout = (req, res) => {
 
 }
 
@@ -76,7 +94,6 @@ exports.create = (req, res) => {
 
         const { name, socialName, cpf, email, phone, password } = req.body
         const whatsappLink = `https://api.whatsapp.com/send?phone=${phone}`
-        const hash = encrypt(password)
 
         User.create({
             name,
@@ -85,7 +102,7 @@ exports.create = (req, res) => {
             email,
             phone,
             whatsappLink,
-            hash
+            password
         }).then(data => {
             res.send(data)
         }).catch(err => {

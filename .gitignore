@@ -3,4 +3,4 @@
 /example-project
 
 yarn.lock
-.env
+*.env

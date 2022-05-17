@@ -2,7 +2,7 @@ const config = require('./index').envConfig
 
 module.exports = {
     HOST: config.HOST,
-    USER: config.USER,
+    USER: config.DB_USER,
     PASSWORD: config.PASSWORD,
     DB: config.DB,
     dialect: 'mysql',
