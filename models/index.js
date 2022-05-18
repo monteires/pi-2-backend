@@ -26,7 +26,7 @@ db.products = require('./product.model')(connection, Sequelize)
 db.users = require('./user.model')(connection, Sequelize)
 
 db.users.hasMany(db.products, {
-    foreignKey: 'fk_user',
+    foreignKey: 'userId',
     hooks: true,
     onDelete: 'CASCADE'
 })
