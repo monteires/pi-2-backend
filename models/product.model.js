@@ -36,6 +36,10 @@ module.exports = (conn, Sequelize) => {
         categoryId: {
             type: Sequelize.INTEGER,
             field: 'fk_categoria'
+        },
+        userId: {
+            type: Sequelize.INTEGER,
+            field: 'fk_user'
         }
     }, {
         tableName: 'produto',

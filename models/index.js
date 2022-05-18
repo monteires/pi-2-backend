@@ -31,6 +31,8 @@ db.users.hasMany(db.products, {
     onDelete: 'CASCADE'
 })
 
+db.products.belongsTo(db.users)
+
 db.products.hasOne(db.preservationStates, {
     sourceKey: 'preservationStateId',
     foreignKey: 'id'

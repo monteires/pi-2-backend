@@ -3,6 +3,7 @@ const User = db.users
 const Op = db.Sequelize.Op
 const session = require('../app').session
 const bcrypt = require('bcrypt')
+const { products } = require('../models')
 
 var userSession;
 
@@ -126,6 +127,34 @@ exports.create = (req, res) => {
 
     
 };
+
+exports.getUserProducts = (req, res) => {
+    const id = req.params.userId
+    console.log(req.params)
+
+    User.findByPk(id, {
+        attributes: ['id'],
+        include: [{ model: products }]
+    })
+        .then(data => {
+            if (data) {
+                res.send(data)
+            } else {
+                res.status(404).send(
+                    {
+                        message: `Resource not found (id=${id})`
+                    }
+                )
+            }
+        })
+        .catch(err => {
+            console.error(err)
+            res.status(500).send({
+                message: `Internal server error: ${err}`
+            })
+        })
+
+}
 
 exports.findAll = (req, res) => {
   

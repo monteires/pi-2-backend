@@ -6,6 +6,8 @@ router.get('/', userController.findAll)
 
 router.get('/:id', userController.findOne)
 
+router.get('/:userId/products/', userController.getUserProducts)
+
 router.post('/', userController.create)
 
 router.post('/login', userController.login)

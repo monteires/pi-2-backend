@@ -4,7 +4,38 @@ const Product = db.products
 const Op = db.Sequelize.Op
 
 exports.create = (req, res) => {
-  
+    const { 
+        productName, 
+        description, 
+        uf, 
+        address, 
+        photo1, 
+        photo2,
+        photo3,
+        preservationStateId,
+        categoryId,
+        userId
+    } = req.body;
+
+    Product.create({
+        productName, 
+        description, 
+        uf, 
+        address, 
+        photo1, 
+        photo2,
+        photo3,
+        preservationStateId,
+        categoryId,
+        userId
+    }).then(data => {
+        res.send(data)
+    }).catch(err => {
+        res.status(500).send({
+            message: `Internal server error: ${err}`
+        })
+    })
+
 };
 
 exports.findAll = (req, res) => {
