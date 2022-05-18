@@ -9,5 +9,6 @@ module.exports = (conn, Sequelize) => {
         tableName: 'estado_conservacao',
         timestamps: false
     })
+
     return PreservationState;
 }

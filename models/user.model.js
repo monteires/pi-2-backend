@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt')
 
 module.exports = (conn, Sequelize) => {
+    const Product = require('./product.model')
+
     const User = conn.define('user', {
         name: {
             type: Sequelize.STRING,

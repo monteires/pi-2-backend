@@ -4,6 +4,8 @@ const Op = db.Sequelize.Op
 const session = require('../app').session
 const bcrypt = require('bcrypt')
 
+var userSession;
+
 const isValid = async (userData) => {
     const missingData = []
     if(!userData.name) 
@@ -61,8 +63,12 @@ exports.login = (req, res) => {
                 return;
             } 
 
+            //going to use lib "connect-session-sequelize" later
+            userSession = req.session
+
             res.status(200).send({
-                message: `Success! Welcome, ${email}`
+                message: `Success! Welcome, ${email} | ` +
+                `session info: ${JSON.stringify(userSession)}`
             })
         }).catch(err => {
             res.status(500).send({
@@ -80,7 +86,8 @@ exports.login = (req, res) => {
 }
 
 exports.logout = (req, res) => {
-
+    //going to use lib "connect-session-sequelize" later
+    req.session.destroy()
 }
 
 exports.create = (req, res) => {
@@ -141,7 +148,7 @@ exports.findOne = (req, res) => {
         .catch(err => {
             console.error(err)
             res.status(500).send({
-                message: 'Internal server error'
+                message: `Internal server error: ${err}`
             })
         })
 
