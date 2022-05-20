@@ -4,3 +4,10 @@
 
 yarn.lock
 *.env
+
+#MERGETOOL
+*_BACKUP_*
+*_LOCAL_*
+*_REMOTE_*
+*_BASE_*
+*.orig
