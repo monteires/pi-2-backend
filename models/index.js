@@ -1,5 +1,6 @@
 const dbConfig = require('../config/db.config')
 const Sequelize = require('sequelize')
+
 const connection = new Sequelize(
     dbConfig.DB,
     dbConfig.USER,
@@ -53,5 +54,9 @@ db.categories.belongsTo(db.products, {
     foreignKey: 'id'
 })
 
-module.exports = db
+module.exports = {
+    db,
+    connection
+}
+
 

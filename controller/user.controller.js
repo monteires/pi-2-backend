@@ -1,4 +1,4 @@
-const db = require('../models')
+const db = require('../models').db
 const User = db.users
 const Op = db.Sequelize.Op
 const session = require('../app').session

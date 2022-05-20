@@ -10,8 +10,15 @@ const userRoutes = require('./routes/user.routes')
 const productRoutes = require('./routes/product.routes')
 
 const session = require('express-session')
+const SessionStore = require('express-session-sequelize')(session.Store)
 const cookieParser = require('cookie-parser')
 const secret = require('./config').envConfig.SESSION_SECRET
+
+const dbConn = require('./models').connection
+
+const sessionStore = new SessionStore({
+    db: dbConn
+})
 
 const app = express();
 
@@ -22,8 +29,8 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(session({
     secret: secret,
-    saveUninitialized: true,
-    cookie: { maxAge: 360000 },
+    saveUninitialized: false,
+    store: sessionStore,
     resave: false
 }))
 

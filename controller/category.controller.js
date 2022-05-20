@@ -1,4 +1,4 @@
-const db = require('../models')
+const db = require('../models').db
 const Categoria = db.categories
 const Op = db.Sequelize.Op
 

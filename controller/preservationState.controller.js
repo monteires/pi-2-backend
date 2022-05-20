@@ -1,4 +1,4 @@
-const db = require('../models')
+const db = require('../models').db
 const EstadoConservacao = db.preservationStates
 const Op = db.Sequelize.Op
 
