@@ -97,6 +97,33 @@ exports.findAllByCategory = (req, res) => {
     })
 };
 
+// exibe todos itens de um estado do br ordenados pela data de criação e depois pelo id, caso haja datas de criação iguais
+exports.findAllByUf = (req, res) => {
+    const uf = req.params.uf;
+
+    Product.findAll({
+        where: {
+            uf: uf
+        },
+        order: [
+            ['createdAt', 'DESC'],
+            ['id', 'DESC'],
+        ]
+    }).then(data => {
+        if (data) {
+            res.send(data)
+        } else {
+            res.status(404).send({
+                message: `Resource not found`
+            })
+        }
+    }).catch(err => {
+        res.status(500).send({
+            message: `Internal server error: ${err}`
+        })
+    })
+};
+
 exports.update = (req, res) => {
 
 };
