@@ -8,4 +8,6 @@ router.post('/', productController.create)
 
 router.get('/category/:category', productController.findAllByCategory)
 
+router.get('/uf/:uf', productController.findAllByUf)
+
 module.exports = router
