@@ -40,6 +40,12 @@ module.exports = (conn, Sequelize) => {
         userId: {
             type: Sequelize.INTEGER,
             field: 'fk_user'
+        },
+        createdAt: {
+            type: 'TIMESTAMP',
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+            allowNull: false,
+            field: 'created_at'
         }
     }, {
         tableName: 'produto',

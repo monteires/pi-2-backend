@@ -70,14 +70,18 @@ exports.findOne = (req, res) => {
     })
 };
 
-// nayton: implementando pesquisa por categoria
+// exibe todos itens de uma categotia ordenados pela data de criação e depois pelo id, caso haja datas de criação iguais
 exports.findAllByCategory = (req, res) => {
     const category = req.params.category;
 
     Product.findAll({
         where: {
             categoryId: category
-        }
+        },
+        order: [
+            ['createdAt', 'DESC'],
+            ['id', 'DESC'],
+        ]
     }).then(data => {
         if (data) {
             res.send(data)
