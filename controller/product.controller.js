@@ -70,27 +70,27 @@ exports.findOne = (req, res) => {
 };
 
 // nayton: implementando pesquisa por categoria
-// exports.findAllBycategory = (req, res) => {
-//     const category = req.params.category;
+exports.findAllByCategory = (req, res) => {
+    const category = req.params.category;
 
-//     Product.findAll({
-//         where: {
-//             categoryId: category
-//         }
-//     }).then(data => {
-//         if (data) {
-//             res.send(data)
-//         } else {
-//             res.status(404).send({
-//                 message: `Resource not found`
-//             })
-//         }
-//     }).catch(err => {
-//         res.status(500).send({
-//             message: `Internal server error: ${err}`
-//         })
-//     })
-// };
+    Product.findAll({
+        where: {
+            categoryId: category
+        }
+    }).then(data => {
+        if (data) {
+            res.send(data)
+        } else {
+            res.status(404).send({
+                message: `Resource not found`
+            })
+        }
+    }).catch(err => {
+        res.status(500).send({
+            message: `Internal server error: ${err}`
+        })
+    })
+};
 
 exports.update = (req, res) => {
 
