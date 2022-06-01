@@ -42,16 +42,17 @@ exports.findAll = (req, res) => {
 
 };
 
+// corrigido, faltou o bd. antes do model: db.categories
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
     Product.findByPk(id, {
         include: [
             {
-                model: categories
+                model: db.categories
             },
             {
-                model: preservationStates
+                model: db.preservationStates
             }
         ]
     }).then(data => {
