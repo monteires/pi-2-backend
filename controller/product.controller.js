@@ -39,7 +39,21 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
+    Product.findAll({
 
+    }).then(data => {
+        if (data) {
+            res.send(data)
+        } else {
+            res.status(404).send({
+                message: `Resource not found`
+            })
+        }
+    }).catch(err => {
+        res.status(500).send({
+            message: `Internal server error: ${err}`
+        })
+    })
 };
 
 // corrigido, faltou o bd. antes do model: db.categories
@@ -96,6 +110,57 @@ exports.findAllByCategory = (req, res) => {
         })
     })
 };
+
+
+// últimos 5 cadastrados  (essa não está funcionando)
+exports.findEnd5 = (req, res) => {
+    Product.findAll({
+        offset: 5, limit: 5,
+    }).then(data => {
+        if (data) {
+            res.send(data)
+        } else {
+            res.status(404).send({
+                message: `Resource not found`
+            })
+        }
+    }).catch(err => {
+        res.status(500).send({
+            message: `Internal server error: ${err}`
+        })
+    })
+};
+
+
+// consulta com like
+exports.findAllByText = (req, res) => {
+
+    const query = `%${req.query.search}%`; // string de consulta
+
+    User.findAll({
+        where: { productName: { [Op.like]: query } }
+    })
+        .then(users => {
+            res.render('main/users', {
+                title: "Usuarios",
+                usuario: users,
+            });
+        }).then(data => {
+            if (data) {
+                res.send(data)
+            } else {
+                res.status(404).send({
+                    message: `Resource not found`
+                })
+            }
+        }).catch(err => {
+            res.status(500).send({
+                message: `Internal server error: ${err}`
+            })
+        })
+};
+
+
 
 // exibe todos itens de um estado do br ordenados pela data de criação e depois pelo id, caso haja datas de criação iguais
 exports.findAllByUf = (req, res) => {
