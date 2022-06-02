@@ -133,6 +133,7 @@ exports.findEnd5 = (req, res) => {
 
 
 // consulta com like
+// fazendo - falta colocar o OR para pesquisar na descrição também
 exports.findAllByText = (req, res) => {
 
     const query = `%${req.params.search}%`; // string de consulta

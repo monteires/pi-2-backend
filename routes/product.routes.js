@@ -15,7 +15,7 @@ router.get('/category/:category', productController.findAllByCategory)
 
 router.get('/uf/:uf', productController.findAllByUf)
 
-// fazendo
+// fazendo - falta colocar o OR para pesquisar na descrição também
 router.get('/search/:search', productController.findAllByText)
 
 module.exports = router
