@@ -138,20 +138,24 @@ exports.findAllByText = (req, res) => {
     const query = `%${req.params.search}%`; // string de consulta
 
     Product.findAll({
-        where: { productName: { [Op.like]: query } }
+        where: { productName: { [Op.like]: query } },
+        order: [
+            ['createdAt', 'DESC'],
+            ['id', 'DESC'],
+        ]
     }).then(data => {
-            if (data) {
-                res.send(data)
-            } else {
-                res.status(404).send({
-                    message: `Resource not found`
-                })
-            }
-        }).catch(err => {
-            res.status(500).send({
-                message: `Internal server error: ${err}`
+        if (data) {
+            res.send(data)
+        } else {
+            res.status(404).send({
+                message: `Resource not found`
             })
+        }
+    }).catch(err => {
+        res.status(500).send({
+            message: `Internal server error: ${err}`
         })
+    })
 };
 
 
