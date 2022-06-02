@@ -135,17 +135,11 @@ exports.findEnd5 = (req, res) => {
 // consulta com like
 exports.findAllByText = (req, res) => {
 
-    const query = `%${req.query.search}%`; // string de consulta
+    const query = `%${req.params.search}%`; // string de consulta
 
-    User.findAll({
+    Product.findAll({
         where: { productName: { [Op.like]: query } }
-    })
-        .then(users => {
-            res.render('main/users', {
-                title: "Usuarios",
-                usuario: users,
-            });
-        }).then(data => {
+    }).then(data => {
             if (data) {
                 res.send(data)
             } else {
