@@ -119,28 +119,20 @@ exports.findAllByCategory = (req, res) => {
     })
 };
 
-// consulta com like
-// fazendo - falta colocar o OR para pesquisar na descrição também
-exports.findAllByText = (req, res) => {
 
-    const query = `%${req.params.search}%`; // string de consulta
+exports.findAllByText = (req, res) => {
+    const query = `%${req.params.search}%`;
     const offset = Number(req.params.offset);
     const limit = Number(req.params.limit);
-
     Product.findAll({
         offset: offset,
         limit: limit,
-
-        //TODO:   Estudadando
-        // where: {
-        //     [Op.or]: [
-        //         { productName: { [Op.like]: query } },
-        //         { description: { [Op.like]: query } }
-        //     ]
-        // },
-
-
-        where: { productName: { [Op.like]: query } },
+        where: {
+            [Op.or]: [
+                { productName: { [Op.like]: query } },
+                { description: { [Op.like]: query } }
+            ]
+        },
         order: [
             ['createdAt', 'DESC'],
             ['id', 'DESC'],
@@ -159,7 +151,6 @@ exports.findAllByText = (req, res) => {
         })
     })
 };
-
 
 
 // exibe todos itens de um estado do br ordenados pela data de criação e depois pelo id, caso haja datas de criação iguais

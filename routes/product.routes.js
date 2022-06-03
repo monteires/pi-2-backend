@@ -6,7 +6,6 @@ router.get('/:id', productController.findOne)
 
 router.post('/', productController.create)
 
-
 // offset é quantos itens serão pulados
 // limit é quantos serão exibidos
 
@@ -17,7 +16,6 @@ router.get('/category/:category/:offset/:limit', productController.findAllByCate
 
 router.get('/uf/:uf/:offset/:limit', productController.findAllByUf)
 
-// fazendo - falta colocar o OR para pesquisar na descrição também
 router.get('/search/:search/:offset/:limit', productController.findAllByText)
 
 module.exports = router
