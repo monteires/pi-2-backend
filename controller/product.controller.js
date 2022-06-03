@@ -39,8 +39,12 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    Product.findAll({
+    const offset = Number(req.params.offset)
+    const limit = Number(req.params.limit)
 
+    Product.findAll({
+        offset: offset, // pula
+        limit: limit // lista essa quantidade
     }).then(data => {
         if (data) {
             res.send(data)
@@ -87,8 +91,12 @@ exports.findOne = (req, res) => {
 // exibe todos itens de uma categotia ordenados pela data de criação e depois pelo id, caso haja datas de criação iguais
 exports.findAllByCategory = (req, res) => {
     const category = req.params.category;
+    const offset = Number(req.params.offset);
+    const limit = Number(req.params.limit);
 
     Product.findAll({
+        offset: offset,
+        limit: limit,
         where: {
             categoryId: category
         },
@@ -111,34 +119,27 @@ exports.findAllByCategory = (req, res) => {
     })
 };
 
-
-// últimos 5 cadastrados  (essa não está funcionando)
-exports.findEnd5 = (req, res) => {
-    Product.findAll({
-        offset: 5, limit: 5,
-    }).then(data => {
-        if (data) {
-            res.send(data)
-        } else {
-            res.status(404).send({
-                message: `Resource not found`
-            })
-        }
-    }).catch(err => {
-        res.status(500).send({
-            message: `Internal server error: ${err}`
-        })
-    })
-};
-
-
 // consulta com like
 // fazendo - falta colocar o OR para pesquisar na descrição também
 exports.findAllByText = (req, res) => {
 
     const query = `%${req.params.search}%`; // string de consulta
+    const offset = Number(req.params.offset);
+    const limit = Number(req.params.limit);
 
     Product.findAll({
+        offset: offset,
+        limit: limit,
+
+        //TODO:   Estudadando
+        // where: {
+        //     [Op.or]: [
+        //         { productName: { [Op.like]: query } },
+        //         { description: { [Op.like]: query } }
+        //     ]
+        // },
+
+
         where: { productName: { [Op.like]: query } },
         order: [
             ['createdAt', 'DESC'],
@@ -164,8 +165,12 @@ exports.findAllByText = (req, res) => {
 // exibe todos itens de um estado do br ordenados pela data de criação e depois pelo id, caso haja datas de criação iguais
 exports.findAllByUf = (req, res) => {
     const uf = req.params.uf;
+    const offset = Number(req.params.offset);
+    const limit = Number(req.params.limit);
 
     Product.findAll({
+        offset: offset,
+        limit: limit,
         where: {
             uf: uf
         },

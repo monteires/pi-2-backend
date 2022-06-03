@@ -6,16 +6,18 @@ router.get('/:id', productController.findOne)
 
 router.post('/', productController.create)
 
-router.get('/', productController.findAll)
 
-// últimos 5 cadastrados  (essa não está funcionando)
-router.get('/end/', productController.findEnd5)
+// offset é quantos itens serão pulados
+// limit é quantos serão exibidos
 
-router.get('/category/:category', productController.findAllByCategory)
+// Essa rota é útil para exivir os 5 ultimos cadastrados, bem como para fazer a paginação.
+router.get('/:offset/:limit', productController.findAll)
 
-router.get('/uf/:uf', productController.findAllByUf)
+router.get('/category/:category/:offset/:limit', productController.findAllByCategory)
+
+router.get('/uf/:uf/:offset/:limit', productController.findAllByUf)
 
 // fazendo - falta colocar o OR para pesquisar na descrição também
-router.get('/search/:search', productController.findAllByText)
+router.get('/search/:search/:offset/:limit', productController.findAllByText)
 
 module.exports = router
