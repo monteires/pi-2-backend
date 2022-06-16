@@ -21,30 +21,13 @@ Neste ponto sua API deverá está rodando no endereço http://127.0.0.1:3001/.
 
 Caso queira migrar para MySQL/MariaDB, edite as configurações de base de dados no arquivo `.env`, configure também o `src/config/database.js`.
 
-Para SQLite as configurações são:
-
-```javascript
-require('dotenv').config();
-
-module.exports = {
-  dialect: 'sqlite',
-  storage: './db.sqlite',
-  define: {
-    timestamps: true,
-    underscored: true,
-    underscoredAll: true,
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
-  },
-};
-```
-
 Para MySQL/MariaDB as configurações são:
 
 ```javascript
 require('dotenv').config();
 
 module.exports = {
+  dialect: 'mysql',
   host: process.env.DATABASE_HOST,
   port: process.env.DATABASE_PORT,
   username: process.env.DATABASE_USERNAME,
