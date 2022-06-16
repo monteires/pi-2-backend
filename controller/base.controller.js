@@ -1,1 +1,0 @@
-//check if it is necessary with sequelize
