@@ -1,5 +1,6 @@
 const dbConfig = require('../config/db.config')
 const Sequelize = require('sequelize')
+
 const connection = new Sequelize(
     dbConfig.DB,
     dbConfig.USER,
@@ -20,10 +21,42 @@ const db = {
     sequelize: connection
 }
 
-db.users = require('./user.model')(connection, Sequelize)
 db.preservationStates = require('./preservationState.model')(connection, Sequelize)
 db.categories = require('./category.model')(connection, Sequelize)
 db.products = require('./product.model')(connection, Sequelize)
+db.users = require('./user.model')(connection, Sequelize)
 
-module.exports = db
+db.users.hasMany(db.products, {
+    foreignKey: 'userId',
+    hooks: true,
+    onDelete: 'CASCADE'
+})
+
+db.products.belongsTo(db.users)
+
+db.products.hasOne(db.preservationStates, {
+    sourceKey: 'preservationStateId',
+    foreignKey: 'id'
+})
+
+db.products.hasOne(db.categories, {
+    sourceKey: 'categoryId',
+    foreignKey: 'id'
+})
+
+db.preservationStates.belongsTo(db.products, {
+    targetKey: 'preservationStateId',
+    foreignKey: 'id'
+})
+
+db.categories.belongsTo(db.products, {
+    targetKey: 'categoryId',
+    foreignKey: 'id'
+})
+
+module.exports = {
+    db,
+    connection
+}
+
 

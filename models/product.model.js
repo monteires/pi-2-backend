@@ -1,7 +1,4 @@
 module.exports = (conn, Sequelize) => {
-    const Category = require('./category.model')(conn, Sequelize)
-    const PreservationState = require('./preservationState.model')(conn, Sequelize)
-
     const Product = conn.define('product', {
         productName: {
             type: Sequelize.STRING,
@@ -32,28 +29,30 @@ module.exports = (conn, Sequelize) => {
             type: Sequelize.STRING,
             field: 'link_foto_3'
         },
-        categoryId: {
-            type: Sequelize.INTEGER,
-            field: 'fk_categoria',
-            references: {
-                model: Category,
-                key: 'id'
-            }
-        },
         preservationStateId: {
             type: Sequelize.INTEGER,
-            field: 'fk_estado_conservacao',
-            references: {
-                model: PreservationState,
-                key: 'id'
-            }
+            field: 'fk_estado_conservacao'
+        },
+        categoryId: {
+            type: Sequelize.INTEGER,
+            field: 'fk_categoria'
+        },
+        userId: {
+            type: Sequelize.INTEGER,
+            field: 'fk_user'
+        },
+        createdAt: {
+            type: 'TIMESTAMP',
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+            allowNull: false,
+            field: 'created_at'
         }
-
     }, {
         tableName: 'produto',
         timestamps: true,
         createdAt: 'created_at',
         updatedAt: false
     })
+
     return Product;
 }

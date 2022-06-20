@@ -1,4 +1,8 @@
+const bcrypt = require('bcrypt')
+
 module.exports = (conn, Sequelize) => {
+    const Product = require('./product.model')
+
     const User = conn.define('user', {
         name: {
             type: Sequelize.STRING,
@@ -30,6 +34,21 @@ module.exports = (conn, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false,
             field: 'hash_senha'
+        },
+        password: {
+            type: Sequelize.VIRTUAL,
+            set: function(val) {
+                hash = bcrypt.hashSync(val, 10)
+                this.setDataValue('password', val)
+                this.setDataValue('hash', hash)
+            },
+            validate: {
+                isLongEnough: function(val) {
+                    if(val.length < 6) {
+                        throw new Error('Passwords should have 6 or more characters');
+                    }
+                }
+            }
         }
     }, {
         tableName: 'usuario',

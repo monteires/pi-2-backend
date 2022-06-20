@@ -9,5 +9,6 @@ module.exports = (conn, Sequelize) => {
         tableName: 'categoria',
         timestamps: false
     })
+
     return Category;
 }
