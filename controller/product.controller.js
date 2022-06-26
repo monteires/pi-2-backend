@@ -1,5 +1,6 @@
 const { categories, preservationStates } = require('../models');
 const db = require('../models').db;
+
 const Product = db.products
 const Op = db.Sequelize.Op
 

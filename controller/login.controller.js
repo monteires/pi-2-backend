@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt')
 const config = require('../config/index').envConfig
 
 
+
 const findEmail = (email, password) => {
     return User.findOne({ where: { email: email } })
 }
@@ -32,11 +33,13 @@ exports.login = (req, res) => {
 
         } else if (userCredentials.hash == hash) {
             const user = userCredentials.email
-            const token = jwt.sign({ user }, config.TOKEN_HASH, { expiresIn: config.TOKEN_EXPIRATION });
+            const id = userCredentials.id
+            const token = jwt.sign({ id }, config.TOKEN_HASH, { expiresIn: config.TOKEN_EXPIRATION });
             res.status(200).send({
                 logado: true,
                 email: `${email}`,
-                token: token
+                token: token,
+                id: id
             })
             return;
 

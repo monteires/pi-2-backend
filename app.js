@@ -10,7 +10,7 @@ const userRoutes = require('./routes/user.routes')
 const productRoutes = require('./routes/product.routes')
 const uploadRoutes = require('./routes/upload.routes')
 const loginRoutes = require('./routes/login.routes')
-const logoutRoutes = require('./routes/logout.routes')
+
 
 const session = require('express-session')
 const SessionStore = require('express-session-sequelize')(session.Store)
@@ -66,7 +66,7 @@ app.use('/users', userRoutes)
 app.use('/products', productRoutes)
 app.use('/upload', uploadRoutes);
 app.use('/login', loginRoutes);
-app.use('/logout', logoutRoutes);
+
 
 // Essa linha faz o servidor disponibilizar o acesso às imagens via URL!
 app.use(express.static('public'));

@@ -11,6 +11,8 @@ router.get('/:id', userController.findOne)
 
 router.get('/:userId/products/', userController.getUserProducts)
 
+
+// criar usuário
 router.post('/', userController.create)
 
 // router.post('/login', loginController.login)

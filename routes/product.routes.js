@@ -6,7 +6,9 @@ const router = express.Router()
 // usada para exibir as informações sobre determinado produto frontend =>  /info-produto
 router.get('/:id', productController.findOne)
 
-router.post('/', productController.create)
+
+// criar produto
+router.post('/', authenticateMiddleware.verifyJWT, productController.create)
 
 // offset é quantos itens serão pulados
 // limit é quantos serão exibidos
@@ -14,7 +16,6 @@ router.post('/', productController.create)
 // Essa rota é útil para exivir os 5 ultimos cadastrados, bem como para fazer a paginação.
 // router.get('/:offset/:limit', productController.findAll)
 
-//teste
 router.get('/:offset/:limit', authenticateMiddleware.verifyJWT, productController.findAll)
 
 
