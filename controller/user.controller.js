@@ -1,104 +1,104 @@
 const db = require('../models').db
 const User = db.users
 const Op = db.Sequelize.Op
-const session = require('../app').session
-const bcrypt = require('bcrypt')
+// const session = require('../app').session
+// const bcrypt = require('bcrypt')
 const { products } = require('../models')
 
-var userSession;
+// var userSession;
 
 const isValid = async (userData) => {
     const missingData = []
-    if(!userData.name) 
+    if (!userData.name)
         missingData.push('name')
-    if(!userData.email)
+    if (!userData.email)
         missingData.push('email')
-    if(!userData.password)
+    if (!userData.password)
         missingData.push('password')
-    
+
     return {
         valid: missingData.length == 0,
         missing: missingData
     }
 }
 
-const findHashByEmail = (email) => {
-    return User.findOne({
-        attributes: ['email', 'hash'],
-        where: {
-            email: email
-        }
-    })
-}
+// const findHashByEmail = (email) => {
+//     return User.findOne({
+//         attributes: ['email', 'hash'],
+//         where: {
+//             email: email
+//         }
+//     })
+// }
 
-const comparePassword = async (password, hash) => {
-    return bcrypt.compare(password, hash)
-}
+// const comparePassword = async (password, hash) => {
+//     return bcrypt.compare(password, hash)
+// }
 
-exports.login = (req, res) => {
-    const { email, password } = req.body
+// exports.login = (req, res) => {
+//     const { email, password } = req.body
 
-    if(!email || !password) {
-        res.status(400).send({
-            message: `Missing parameters`
-        })
+//     if (!email || !password) {
+//         res.status(400).send({
+//             message: `Missing parameters`
+//         })
 
-        return;
-    }
+//         return;
+//     }
 
-    findHashByEmail(email).then(userCredentials => {
-        if(!userCredentials.email) {
-            res.status(404).send({
-                message: `User not found: ${email}`
-            })
+//     findHashByEmail(email).then(userCredentials => {
+//         if (!userCredentials.email) {
+//             res.status(404).send({
+//                 message: `User not found: ${email}`
+//             })
 
-            return;
-        } 
+//             return;
+//         }
 
-        comparePassword(password, userCredentials.hash).then(val => {
-            if(!val) {
-                res.status(401).send({
-                    message: `Invalid credentials`
-                })
-    
-                return;
-            } 
+//         comparePassword(password, userCredentials.hash).then(val => {
+//             if (!val) {
+//                 res.status(401).send({
+//                     message: `Invalid credentials`
+//                 })
 
-            //going to use lib "connect-session-sequelize" later
-            userSession = req.session
+//                 return;
+//             }
 
-            res.status(200).send({
-                message: `Success! Welcome, ${email} | ` +
-                `session info: ${JSON.stringify(userSession)}`
-            })
-        }).catch(err => {
-            res.status(500).send({
-                message: `Internal server error: ${err}`
-            })
-        })
-        
-    }).catch(err => {
-        res.status(500).send({
-            message: `Internal server error: ${err}`
-        })
-    })
+//             //going to use lib "connect-session-sequelize" later
+//             userSession = req.session
+
+//             res.status(200).send({
+//                 message: `Success! Welcome, ${email} | ` +
+//                     `session info: ${JSON.stringify(userSession)}`
+//             })
+//         }).catch(err => {
+//             res.status(500).send({
+//                 message: `Internal server error: ${err}`
+//             })
+//         })
+
+//     }).catch(err => {
+//         res.status(500).send({
+//             message: `Internal server error: ${err}`
+//         })
+//     })
 
 
-}
+// }
 
-exports.logout = (req, res) => {
-    //going to use lib "connect-session-sequelize" later
-    req.session.destroy()
-}
+// exports.logout = (req, res) => {
+//     //going to use lib "connect-session-sequelize" later
+//     req.session.destroy()
+// }
 
 exports.create = (req, res) => {
     isValid(req.body).then(data => {
-        if(!data.valid) {
+        if (!data.valid) {
             res.status(400).send({
                 message: `Missing parameters=${data.missing.join(',')}`
             })
             return;
-        } 
+        }
 
         const { name, socialName, cpf, email, phone, password } = req.body
         const whatsappLink = `https://api.whatsapp.com/send?phone=${phone}`
@@ -125,7 +125,7 @@ exports.create = (req, res) => {
         })
     })
 
-    
+
 };
 
 exports.getUserProducts = (req, res) => {
@@ -156,8 +156,21 @@ exports.getUserProducts = (req, res) => {
 
 }
 
+// somente para Desenvolvimento
 exports.findAll = (req, res) => {
-  
+    User.findAll().then(data => {
+        if (data) {
+            res.send(data)
+        } else {
+            res.status(404).send({
+                message: `Resource not found`
+            })
+        }
+    }).catch(err => {
+        res.status(500).send({
+            message: `Internal server error: ${err}`
+        })
+    })
 };
 
 exports.findOne = (req, res) => {
@@ -184,17 +197,17 @@ exports.findOne = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  
+
 };
 
 exports.delete = (req, res) => {
-  
+
 };
 
 exports.deleteAll = (req, res) => {
-  
+
 };
 
 exports.findAllPublished = (req, res) => {
-  
+
 };

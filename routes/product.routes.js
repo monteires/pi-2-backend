@@ -1,5 +1,6 @@
 const express = require('express')
 const productController = require('../controller/product.controller')
+const authenticateMiddleware = require('../middleware/authenticate.middleware')
 const router = express.Router()
 
 // usada para exibir as informações sobre determinado produto frontend =>  /info-produto

@@ -1,5 +1,6 @@
 const express = require('express')
 const userController = require('../controller/user.controller')
+// const loginController = require('../controller/login.controller')
 const router = express.Router()
 
 //precisa especificar o caminho base da rota no app.js
@@ -12,7 +13,7 @@ router.get('/:userId/products/', userController.getUserProducts)
 
 router.post('/', userController.create)
 
-router.post('/login', userController.login)
+// router.post('/login', loginController.login)
 // falta as rotas para
 // atualizar senha     frontend  => /editar-senha
 // atualizar email    frontend  =>  /editar-email
