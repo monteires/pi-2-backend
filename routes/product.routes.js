@@ -10,6 +10,12 @@ router.get('/:id', productController.findOne)
 // criar produto
 router.post('/', authenticateMiddleware.verifyJWT, productController.create)
 
+// update produto
+router.put('/:id', authenticateMiddleware.verifyJWT, productController.update)
+
+// deletar produto
+router.delete('/:id', authenticateMiddleware.verifyJWT, productController.delete)
+
 // offset é quantos itens serão pulados
 // limit é quantos serão exibidos
 
@@ -17,9 +23,6 @@ router.post('/', authenticateMiddleware.verifyJWT, productController.create)
 // router.get('/:offset/:limit', productController.findAll)
 
 router.get('/:offset/:limit', authenticateMiddleware.verifyJWT, productController.findAll)
-
-
-
 
 router.get('/category/:category/:offset/:limit', productController.findAllByCategory)
 

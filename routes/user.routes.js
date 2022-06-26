@@ -1,6 +1,6 @@
 const express = require('express')
 const userController = require('../controller/user.controller')
-// const loginController = require('../controller/login.controller')
+const authenticateMiddleware = require('../middleware/authenticate.middleware')
 const router = express.Router()
 
 //precisa especificar o caminho base da rota no app.js
@@ -14,6 +14,12 @@ router.get('/:userId/products/', userController.getUserProducts)
 
 // criar usuário
 router.post('/', userController.create)
+
+//update usuário
+router.put('/', authenticateMiddleware.verifyJWT, userController.update)
+
+//delete usuário (não está funcioando não sei porque!!!!!!!)
+router.delete('/', authenticateMiddleware.verifyJWT, userController.delete)
 
 // router.post('/login', loginController.login)
 // falta as rotas para

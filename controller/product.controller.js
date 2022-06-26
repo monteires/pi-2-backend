@@ -15,7 +15,6 @@ exports.create = (req, res) => {
         photo3,
         preservationStateId,
         categoryId,
-        userId
     } = req.body;
 
     Product.create({
@@ -28,7 +27,7 @@ exports.create = (req, res) => {
         photo3,
         preservationStateId,
         categoryId,
-        userId
+        userId: req.id
     }).then(data => {
         res.send(data)
     }).catch(err => {
@@ -37,6 +36,66 @@ exports.create = (req, res) => {
         })
     })
 
+};
+
+exports.update = (req, res) => {
+    const id_do_item = req.params.id
+    const id_criador_do_item = req.id;
+    // console.log(`id_do_item: ${id_do_item} e d_criador_do_item: ${d_criador_do_item}`)
+
+    Product.update(req.body, {
+        where: {
+            [Op.and]: [
+                { id: id_do_item },
+                { userId: id_criador_do_item }
+            ]
+        },
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "product was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update product with id=${id}. Maybe way was not found or req.body was empty!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating product with id=" + id
+            });
+        });
+};
+
+exports.delete = (req, res) => {
+    const id_do_item = req.params.id
+    const id_criador_do_item = req.id;
+    Product.destroy({
+        where: {
+            [Op.and]: [
+                { id: id_do_item },
+                { userId: id_criador_do_item }
+            ]
+        }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "product was deleted successfully!"
+                });
+            } else {
+                res.send({
+                    message: `Cannot delete product with id=${id}. Maybe product was not found!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Could not delete product with id=" + id
+            });
+        });
 };
 
 exports.findAll = (req, res) => {
@@ -183,20 +242,4 @@ exports.findAllByUf = (req, res) => {
             message: `Internal server error: ${err}`
         })
     })
-};
-
-exports.update = (req, res) => {
-
-};
-
-exports.delete = (req, res) => {
-
-};
-
-exports.deleteAll = (req, res) => {
-
-};
-
-exports.findAllPublished = (req, res) => {
-
 };

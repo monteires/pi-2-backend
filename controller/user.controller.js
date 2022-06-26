@@ -22,75 +22,6 @@ const isValid = async (userData) => {
     }
 }
 
-// const findHashByEmail = (email) => {
-//     return User.findOne({
-//         attributes: ['email', 'hash'],
-//         where: {
-//             email: email
-//         }
-//     })
-// }
-
-// const comparePassword = async (password, hash) => {
-//     return bcrypt.compare(password, hash)
-// }
-
-// exports.login = (req, res) => {
-//     const { email, password } = req.body
-
-//     if (!email || !password) {
-//         res.status(400).send({
-//             message: `Missing parameters`
-//         })
-
-//         return;
-//     }
-
-//     findHashByEmail(email).then(userCredentials => {
-//         if (!userCredentials.email) {
-//             res.status(404).send({
-//                 message: `User not found: ${email}`
-//             })
-
-//             return;
-//         }
-
-//         comparePassword(password, userCredentials.hash).then(val => {
-//             if (!val) {
-//                 res.status(401).send({
-//                     message: `Invalid credentials`
-//                 })
-
-//                 return;
-//             }
-
-//             //going to use lib "connect-session-sequelize" later
-//             userSession = req.session
-
-//             res.status(200).send({
-//                 message: `Success! Welcome, ${email} | ` +
-//                     `session info: ${JSON.stringify(userSession)}`
-//             })
-//         }).catch(err => {
-//             res.status(500).send({
-//                 message: `Internal server error: ${err}`
-//             })
-//         })
-
-//     }).catch(err => {
-//         res.status(500).send({
-//             message: `Internal server error: ${err}`
-//         })
-//     })
-
-
-// }
-
-// exports.logout = (req, res) => {
-//     //going to use lib "connect-session-sequelize" later
-//     req.session.destroy()
-// }
-
 exports.create = (req, res) => {
     isValid(req.body).then(data => {
         if (!data.valid) {
@@ -126,6 +57,71 @@ exports.create = (req, res) => {
     })
 
 
+};
+
+// exports.update = (req, res) => {
+//     const { name, socialName, phone } = req.body
+//     const whatsappLink = `https://api.whatsapp.com/send?phone=${phone}`
+//     const id = req.id
+//     update(
+//         {
+//             name: name,
+//             socialName: socialName,
+//             phone: phone,
+//             whatsappLink: whatsappLink
+//         },
+//         { where: { id: id } }).then(data => {
+//             res.send(data)
+//         }).catch(err => {
+//             res.status(500).send({
+//                 message: `Could not update resource: ${err.message}`
+//             })
+//         })
+// };
+exports.update = (req, res) => {
+    const id = req.id;
+    User.update(req.body, {
+        where: { id: id }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "User was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update user with id=${id}. Maybe way was not found or req.body was empty!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating user with id=" + id
+            });
+        });
+};
+
+exports.delete = (req, res) => {
+    const id = req.id;
+    User.destroy({
+        where: { id: id }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "user was deleted successfully!"
+                });
+            } else {
+                res.send({
+                    message: `Cannot delete user with id=${id}. Maybe user was not found!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Could not delete user with id=" + id
+            });
+        });
 };
 
 exports.getUserProducts = (req, res) => {
@@ -196,13 +192,7 @@ exports.findOne = (req, res) => {
 
 };
 
-exports.update = (req, res) => {
 
-};
-
-exports.delete = (req, res) => {
-
-};
 
 exports.deleteAll = (req, res) => {
 
