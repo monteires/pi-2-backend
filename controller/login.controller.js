@@ -31,7 +31,8 @@ exports.login = (req, res) => {
             return;
 
         } else if (userCredentials.hash == hash) {
-            const token = jwt.sign({ email }, config.TOKEN_HASH, {
+            const user = userCredentials.email
+            const token = jwt.sign({ user }, config.TOKEN_HASH, {
                 expiresIn: config.TOKEN_EXPIRATION
             });
             res.status(200).send({

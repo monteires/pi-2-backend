@@ -12,7 +12,13 @@ router.post('/', productController.create)
 // limit é quantos serão exibidos
 
 // Essa rota é útil para exivir os 5 ultimos cadastrados, bem como para fazer a paginação.
-router.get('/:offset/:limit', productController.findAll)
+// router.get('/:offset/:limit', productController.findAll)
+
+//teste
+router.get('/:offset/:limit', authenticateMiddleware.verifyJWT, productController.findAll)
+
+
+
 
 router.get('/category/:category/:offset/:limit', productController.findAllByCategory)
 

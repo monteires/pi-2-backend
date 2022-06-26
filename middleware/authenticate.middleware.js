@@ -12,8 +12,13 @@ exports.verifyJWT = (req, res, next) => {
     const index = blacklist.findIndex(item => item === token);
     if (index !== -1) return res.status(401).end();
 
+    //TODO: Qual o erro aqui, pq não dá certo ?
     jwt.verify(token, config.TOKEN_HASH, function (err, decoded) {
-        if (err) return res.status(401).json({ auth: false, message: 'Failed to authenticate token.' });
+        if (err) return res.status(401).json(
+            {
+                auth: false,
+                message: 'Failed to authenticate token.'
+            });
 
         // se tudo estiver ok, salva no request para uso posterior
         req.userId = decoded.id;
