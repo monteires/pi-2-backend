@@ -32,9 +32,7 @@ exports.login = (req, res) => {
 
         } else if (userCredentials.hash == hash) {
             const user = userCredentials.email
-            const token = jwt.sign({ user }, config.TOKEN_HASH, {
-                expiresIn: config.TOKEN_EXPIRATION
-            });
+            const token = jwt.sign({ user }, config.TOKEN_HASH, { expiresIn: config.TOKEN_EXPIRATION });
             res.status(200).send({
                 logado: true,
                 email: `${email}`,

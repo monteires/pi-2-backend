@@ -5,8 +5,8 @@ const router = express.Router()
 
 //precisa especificar o caminho base da rota no app.js
 
-// router.post('/', authenticateMiddleware.verifyJWT, logoutController.logout)
-router.post('/', logoutController.logout)
+router.post('/', authenticateMiddleware.verifyJWT, logoutController.logout)
+// router.post('/', logoutController.logout)
 
 
 module.exports = router;

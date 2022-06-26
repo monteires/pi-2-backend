@@ -6,13 +6,12 @@ const config = require('../config/index').envConfig
 const blacklist = [];
 
 exports.verifyJWT = (req, res, next) => {
-    var token = req.headers['x-access-token'];
+    var token = req.headers.authorization.split(' ')[1];
     if (!token) return res.status(401).json({ auth: false, message: 'No token provided.' });
 
     const index = blacklist.findIndex(item => item === token);
     if (index !== -1) return res.status(401).end();
 
-    //TODO: Qual o erro aqui, pq não dá certo ?
     jwt.verify(token, config.TOKEN_HASH, function (err, decoded) {
         if (err) return res.status(401).json(
             {
@@ -20,8 +19,8 @@ exports.verifyJWT = (req, res, next) => {
                 message: 'Failed to authenticate token.'
             });
 
-        // se tudo estiver ok, salva no request para uso posterior
-        req.userId = decoded.id;
+        // o que eu faço com isso abaixo ?
+        req.email = decoded.user;
         next();
     });
 }
