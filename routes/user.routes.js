@@ -25,9 +25,4 @@ router.put('/', authenticateMiddleware.verifyJWT, userController.update)
 router.delete('/', authenticateMiddleware.verifyJWT, userController.delete)
 
 
-
-
-
-
-
 module.exports = router;
