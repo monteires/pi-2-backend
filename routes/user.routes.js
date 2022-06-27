@@ -3,22 +3,25 @@ const userController = require('../controller/user.controller')
 const authenticateMiddleware = require('../middleware/authenticate.middleware')
 const router = express.Router()
 
-//precisa especificar o caminho base da rota no app.js
-
+// Essa rota é apenas para o Desenvolvimento
+// https://backend-univesp.herokuapp.com/users
 router.get('/', userController.findAll)
 
+// Essa rota é apenas para o Desenvolvimento
+// https://backend-univesp.herokuapp.com/users/{id do usuário}
+// https://backend-univesp.herokuapp.com/users/1
 router.get('/:id', userController.findOne)
 
-router.get('/:userId/products/', userController.getUserProducts)
-
-
 // criar usuário
+// https://backend-univesp.herokuapp.com/users +req.boby
 router.post('/', userController.create)
 
-//update usuário
+// update usuário
+// https://backend-univesp.herokuapp.com/users +req.boby
 router.put('/', authenticateMiddleware.verifyJWT, userController.update)
 
-//delete usuário (não está funcioando não sei porque!!!!!!!)
+// delete usuário
+// https://backend-univesp.herokuapp.com/users
 router.delete('/', authenticateMiddleware.verifyJWT, userController.delete)
 
 // router.post('/login', loginController.login)
@@ -26,7 +29,9 @@ router.delete('/', authenticateMiddleware.verifyJWT, userController.delete)
 // atualizar senha     frontend  => /editar-senha
 // atualizar email    frontend  =>  /editar-email
 
-// atualizar perfil com (nome, sobrenome,Nome social, Telefone / WhatsApp)    frontend  =>  editar-perfil
+
+
+
 
 
 module.exports = router;

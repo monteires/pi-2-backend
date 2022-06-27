@@ -45,7 +45,7 @@ const uploadPhotos = (typePhoto) => async (req, res) => {
                 else {
                     const image = {};
                     image.id = req.file.filename;
-                    image.url = `/uploads/${image.id}`;
+                    image.url = `https://backend-univesp.herokuapp.com/public/uploads/${image.id}`;
                     console.log(`id do produto: ${req.params.id}`)
 
                     Product.update({

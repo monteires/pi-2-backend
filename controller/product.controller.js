@@ -120,7 +120,7 @@ exports.findAll = (req, res) => {
     })
 };
 
-// corrigido, faltou o bd. antes do model: db.categories
+
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
@@ -139,6 +139,35 @@ exports.findOne = (req, res) => {
         } else {
             res.status(404).send({
                 message: `Resource not found (id=${id})`
+            })
+        }
+    }).catch(err => {
+        res.status(500).send({
+            message: `Internal server error: ${err}`
+        })
+    })
+};
+
+exports.findAllmy = (req, res) => {
+    const offset = Number(req.params.offset)
+    const limit = Number(req.params.limit)
+
+    Product.findAll({
+        offset: offset, // pula
+        limit: limit, // lista essa quantidade
+        where: {
+            userId: req.id
+        },
+        order: [
+            ['createdAt', 'DESC'],
+            ['id', 'DESC'],
+        ]
+    }).then(data => {
+        if (data) {
+            res.send(data)
+        } else {
+            res.status(404).send({
+                message: `Resource not found`
             })
         }
     }).catch(err => {
