@@ -17,7 +17,7 @@ exports.login = (req, res) => {
 
     if (!email || !hash) {
         res.status(400).send({
-            message: `Missing parameters`
+            message: `Faltou enviar o email ou o hash da senha`
         })
 
         return;
@@ -27,7 +27,7 @@ exports.login = (req, res) => {
     findEmail(email, hash).then(userCredentials => {
         if (!userCredentials.email) {
             res.status(404).send({
-                message: `User not found: ${email}`
+                message: `Usuário não encontrado: ${email}`
             })
             return;
 

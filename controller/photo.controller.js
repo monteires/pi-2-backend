@@ -63,12 +63,12 @@ const uploadPhotos = (typePhoto) => async (req, res) => {
 
         } else {
             res.status(404).send({
-                message: `Resource not found (id=${id})`
+                message: `Carragamento da foto não realizado`
             })
         }
     }).catch(err => {
         res.status(500).send({
-            message: `Internal server error: ${err}`
+            message: `Carragamento da foto não realizado`
         })
     })
 

@@ -55,29 +55,8 @@ exports.create = (req, res) => {
             message: `Could not parse user data: ${err.message}`
         })
     })
-
-
 };
 
-// exports.update = (req, res) => {
-//     const { name, socialName, phone } = req.body
-//     const whatsappLink = `https://api.whatsapp.com/send?phone=${phone}`
-//     const id = req.id
-//     update(
-//         {
-//             name: name,
-//             socialName: socialName,
-//             phone: phone,
-//             whatsappLink: whatsappLink
-//         },
-//         { where: { id: id } }).then(data => {
-//             res.send(data)
-//         }).catch(err => {
-//             res.status(500).send({
-//                 message: `Could not update resource: ${err.message}`
-//             })
-//         })
-// };
 exports.update = (req, res) => {
     const id = req.id;
     User.update(req.body, {
@@ -86,17 +65,17 @@ exports.update = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "User was updated successfully."
+                    message: "Usuário foi atualizado com sucesso."
                 });
             } else {
                 res.send({
-                    message: `Cannot update user with id=${id}. Maybe way was not found or req.body was empty!`
+                    message: `Não foi possível atualizar o cadastro do usuário`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating user with id=" + id
+                message: "Não foi possível atualizar o cadastro do usuário"
             });
         });
 };
@@ -109,17 +88,17 @@ exports.delete = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "user was deleted successfully!"
+                    message: "Usuário foi removido com sucesso"
                 });
             } else {
                 res.send({
-                    message: `Cannot delete user with id=${id}. Maybe user was not found!`
+                    message: `Não foi possível remover o usuário`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete user with id=" + id
+                message: "Não foi possível remover o usuário"
             });
         });
 };
@@ -138,7 +117,7 @@ exports.getUserProducts = (req, res) => {
             } else {
                 res.status(404).send(
                     {
-                        message: `Resource not found (id=${id})`
+                        message: `Não foi possível realizar essa pesquisa`
                     }
                 )
             }
@@ -146,7 +125,7 @@ exports.getUserProducts = (req, res) => {
         .catch(err => {
             console.error(err)
             res.status(500).send({
-                message: `Internal server error: ${err}`
+                message: `Não foi possível realizar essa pesquisa`
             })
         })
 
@@ -159,12 +138,12 @@ exports.findAll = (req, res) => {
             res.send(data)
         } else {
             res.status(404).send({
-                message: `Resource not found`
+                message: `Não foi possível realizar essa pesquisa`
             })
         }
     }).catch(err => {
         res.status(500).send({
-            message: `Internal server error: ${err}`
+            message: `Não foi possível realizar essa pesquisa`
         })
     })
 };
@@ -178,7 +157,7 @@ exports.findOne = (req, res) => {
             } else {
                 res.status(404).send(
                     {
-                        message: `Resource not found (id=${id})`
+                        message: `Não foi possível realizar essa pesquisa`
                     }
                 )
             }
@@ -186,7 +165,7 @@ exports.findOne = (req, res) => {
         .catch(err => {
             console.error(err)
             res.status(500).send({
-                message: `Internal server error: ${err}`
+                message: `Não foi possível realizar essa pesquisa`
             })
         })
 

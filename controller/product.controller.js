@@ -54,17 +54,17 @@ exports.update = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "product was updated successfully."
+                    message: "Cadastro de item atualizado com sucesso."
                 });
             } else {
                 res.send({
-                    message: `Cannot update product with id=${id}. Maybe way was not found or req.body was empty!`
+                    message: `Não foi possível atualizar o cadastro desse item`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating product with id=" + id
+                message: "Não foi possível atualizar o cadastro desse item"
             });
         });
 };
@@ -83,17 +83,17 @@ exports.delete = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "product was deleted successfully!"
+                    message: "Item removido com sucesso"
                 });
             } else {
                 res.send({
-                    message: `Cannot delete product with id=${id}. Maybe product was not found!`
+                    message: `Não foi possível remover esse item`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete product with id=" + id
+                message: "Não foi possível remover esse item"
             });
         });
 };
@@ -110,12 +110,12 @@ exports.findAll = (req, res) => {
             res.send(data)
         } else {
             res.status(404).send({
-                message: `Resource not found`
+                message: `Não foi possível realizar essa pesquisa`
             })
         }
     }).catch(err => {
         res.status(500).send({
-            message: `Internal server error: ${err}`
+            message: `Não foi possível realizar essa pesquisa`
         })
     })
 };
@@ -138,12 +138,12 @@ exports.findOne = (req, res) => {
             res.send(data)
         } else {
             res.status(404).send({
-                message: `Resource not found (id=${id})`
+                message: `Não foi possível realizar essa pesquisa`
             })
         }
     }).catch(err => {
         res.status(500).send({
-            message: `Internal server error: ${err}`
+            message: `Não foi possível realizar essa pesquisa`
         })
     })
 };
@@ -167,12 +167,12 @@ exports.findAllmy = (req, res) => {
             res.send(data)
         } else {
             res.status(404).send({
-                message: `Resource not found`
+                message: `Não foi possível realizar essa pesquisa`
             })
         }
     }).catch(err => {
         res.status(500).send({
-            message: `Internal server error: ${err}`
+            message: `Não foi possível realizar essa pesquisa`
         })
     })
 };
@@ -198,12 +198,12 @@ exports.findAllByCategory = (req, res) => {
             res.send(data)
         } else {
             res.status(404).send({
-                message: `Resource not found`
+                message: `Não foi possível realizar essa pesquisa`
             })
         }
     }).catch(err => {
         res.status(500).send({
-            message: `Internal server error: ${err}`
+            message: `Não foi possível realizar essa pesquisa`
         })
     })
 };
@@ -231,12 +231,12 @@ exports.findAllByText = (req, res) => {
             res.send(data)
         } else {
             res.status(404).send({
-                message: `Resource not found`
+                message: `Não foi possível realizar essa pesquisa`
             })
         }
     }).catch(err => {
         res.status(500).send({
-            message: `Internal server error: ${err}`
+            message: `Não foi possível realizar essa pesquisa`
         })
     })
 };
@@ -263,12 +263,12 @@ exports.findAllByUf = (req, res) => {
             res.send(data)
         } else {
             res.status(404).send({
-                message: `Resource not found`
+                message: `Não foi possível realizar essa pesquisa`
             })
         }
     }).catch(err => {
         res.status(500).send({
-            message: `Internal server error: ${err}`
+            message: `Não foi possível realizar essa pesquisa`
         })
     })
 };
