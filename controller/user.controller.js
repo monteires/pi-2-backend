@@ -126,7 +126,7 @@ exports.delete = (req, res) => {
 
 exports.getUserProducts = (req, res) => {
     const id = req.params.userId
-    console.log(req.params)
+    // console.log(req.params)
 
     User.findByPk(id, {
         attributes: ['id'],
