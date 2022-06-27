@@ -6,7 +6,6 @@ const router = express.Router()
 // usada para exibir as informações sobre determinado produto frontend =>  /info-produto
 router.get('/:id', productController.findOne)
 
-
 // criar produto
 router.post('/', authenticateMiddleware.verifyJWT, productController.create)
 

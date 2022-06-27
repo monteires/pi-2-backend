@@ -8,12 +8,20 @@ exports.verifyJWT = (req, res, next) => {
 
 
 
+    console.log('____________________________')
+    console.log(req.session.data)
     jwt.verify(token, config.TOKEN_HASH, function (err, decoded) {
         if (err) return res.status(401).json(
             {
                 auth: false,
                 message: 'Failed to authenticate token.'
             });
+
+
+        if (token != req.session.data) {
+            res.status(401).json({ auth: false, message: 'No token provided.' });
+            return
+        }
 
         // o id do user é enviado para o req, tbm está presente no token
         req.id = decoded.id;

@@ -8,7 +8,7 @@ const errorHandler = require('./controller/error_handler')
 
 const userRoutes = require('./routes/user.routes')
 const productRoutes = require('./routes/product.routes')
-const uploadRoutes = require('./routes/upload.routes')
+const photoRoutes = require('./routes/photo.routes')
 const loginRoutes = require('./routes/login.routes')
 
 
@@ -64,7 +64,7 @@ app.use('/', rateLimit({
 //Routes
 app.use('/users', userRoutes)
 app.use('/products', productRoutes)
-app.use('/upload', uploadRoutes);
+app.use('/photo', photoRoutes);
 app.use('/login', loginRoutes);
 
 

@@ -35,6 +35,11 @@ exports.login = (req, res) => {
             const user = userCredentials.email
             const id = userCredentials.id
             const token = jwt.sign({ id }, config.TOKEN_HASH, { expiresIn: config.TOKEN_EXPIRATION });
+
+
+            req.session.data = token
+
+
             res.status(200).send({
                 logado: true,
                 email: `${email}`,
