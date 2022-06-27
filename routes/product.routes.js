@@ -27,16 +27,18 @@ router.delete('/:id', authenticateMiddleware.verifyJWT, productController.delete
 // https://backend-univesp.herokuapp.com/products/0/50
 router.get('/:offset/:limit', authenticateMiddleware.verifyJWT, productController.findAll)
 
-// // https://backend-univesp.herokuapp.com/products/category/{id da categoria}/{offset}/{limit}
+// pesquisa por categoria
+// https://backend-univesp.herokuapp.com/products/category/{id da categoria}/{offset}/{limit}
 // https://backend-univesp.herokuapp.com/products/category/2/0/5
 router.get('/category/:category/:offset/:limit', productController.findAllByCategory)
 
+// pesquisa por estado da confedereção
 // https://backend-univesp.herokuapp.com/products/uf/{Sigla do Estado}/{offset}/{limit}
 // https://backend-univesp.herokuapp.com/products/uf/sp/0/5
 router.get('/uf/:uf/:offset/:limit', productController.findAllByUf)
 
+// pesquisa por texto
 // https://backend-univesp.herokuapp.com/products/search/{texto da pesquisa}/{offset}/{limit}
-// https://backend-univesp.herokuapp.com/products/uf/sp/0/5
 // https://backend-univesp.herokuapp.com/products/search/preta/0/5
 router.get('/search/:search/:offset/:limit', productController.findAllByText)
 
@@ -44,7 +46,5 @@ router.get('/search/:search/:offset/:limit', productController.findAllByText)
 // https://backend-univesp.herokuapp.com/products/{offset}/{limit}/my
 // https://backend-univesp.herokuapp.com/products/0/50/my
 router.get('/:offset/:limit/my', authenticateMiddleware.verifyJWT, productController.findAllmy)
-
-// update produto       frontend  =>  /editar-doacao         editar-email
 
 module.exports = router

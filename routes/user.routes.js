@@ -24,10 +24,6 @@ router.put('/', authenticateMiddleware.verifyJWT, userController.update)
 // https://backend-univesp.herokuapp.com/users
 router.delete('/', authenticateMiddleware.verifyJWT, userController.delete)
 
-// router.post('/login', loginController.login)
-// falta as rotas para
-// atualizar senha     frontend  => /editar-senha
-// atualizar email    frontend  =>  /editar-email
 
 
 
