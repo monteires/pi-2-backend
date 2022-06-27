@@ -5,6 +5,7 @@ const router = express.Router()
 
 // Exibe um determinado produto
 // https://backend-univesp.herokuapp.com/{id do produto}/one
+// https://backend-univesp.herokuapp.com/1/one
 router.get('/:id/one', productController.findOne)
 
 // criar produto
@@ -13,10 +14,12 @@ router.post('/', authenticateMiddleware.verifyJWT, productController.create)
 
 // update produto
 // https://backend-univesp.herokuapp.com/products/{id do produto} + req.body + token
+// https://backend-univesp.herokuapp.com/products/1
 router.put('/:id', authenticateMiddleware.verifyJWT, productController.update)
 
 // deletar produto
 // https://backend-univesp.herokuapp.com/products/{id do produto} + req.body + token
+// https://backend-univesp.herokuapp.com/products/1
 router.delete('/:id', authenticateMiddleware.verifyJWT, productController.delete)
 
 // offset é quantos itens serão pulados
