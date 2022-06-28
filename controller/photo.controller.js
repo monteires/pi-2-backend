@@ -1,5 +1,6 @@
 const db = require('../models').db;
 const authenticateMiddleware = require('../middleware/authenticate.middleware')
+const uuid = require("uuid");
 
 const Product = db.products
 const Op = db.Sequelize.Op
@@ -12,8 +13,16 @@ const storage = multer.diskStorage({
         cb(null, 'public/uploads/');
     },
     filename: (req, file, cb) => {
-        const fileName = file.originalname.toLowerCase().split(' ').join('-');
+
+        const originalname = file.originalname.toLowerCase();
+        const extension = originalname.substring(originalname.lastIndexOf('.'))
+        const fileName = `${uuid.v1().toString()}${extension}`
+
+        // const fileName = file.originalname.toLowerCase().split(' ').join('-') + Date.now();
         cb(null, fileName)
+
+        // const fileName = file.originalname.toLowerCase().split(' ').join('-');
+        // cb(null, fileName)
     }
 });
 const upload = multer({
