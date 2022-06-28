@@ -28,7 +28,7 @@ router.delete('/:id', authenticateMiddleware.verifyJWT, productController.delete
 // Essa rota é útil para exiir os 5 ultimos cadastrados, bem como para fazer a paginação.
 // https://backend-univesp.herokuapp.com/products/{offset}/{limit}
 // https://backend-univesp.herokuapp.com/products/0/50
-router.get('/:offset/:limit', authenticateMiddleware.verifyJWT, productController.findAll)
+router.get('/:offset/:limit', productController.findAll)
 
 // pesquisa por categoria
 // https://backend-univesp.herokuapp.com/products/category/{id da categoria}/{offset}/{limit}
