@@ -13,7 +13,8 @@ const findEmail = (email, password) => {
 
 
 exports.login = (req, res) => {
-    const { email, hash } = req.body
+    const { email, password } = req.body;
+    const hash = bcrypt.hashSync(password, 10);
 
     if (!email || !hash) {
         res.status(400).send({
