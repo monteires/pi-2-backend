@@ -14,9 +14,8 @@ const findEmail = (email, password) => {
 
 exports.login = (req, res) => {
     const { email, password } = req.body;
-    const hash = bcrypt.hashSync(password, 10);
 
-    if (!email || !hash) {
+    if (!email || !password) {
         res.status(400).send({
             message: `Faltou enviar o email ou o hash da senha`
         })
@@ -25,14 +24,14 @@ exports.login = (req, res) => {
     }
 
 
-    findEmail(email, hash).then(userCredentials => {
+    findEmail(email, password).then(userCredentials => {
         if (!userCredentials.email) {
             res.status(404).send({
                 message: `Usuário não encontrado: ${email}`
             })
             return;
 
-        } else if (userCredentials.hash == hash) {
+        } else if (bcrypt.compareSync(password, userCredentials.hash)) {
             const user = userCredentials.email
             const id = userCredentials.id
             const token = jwt.sign({ id }, config.TOKEN_HASH, { expiresIn: config.TOKEN_EXPIRATION });
