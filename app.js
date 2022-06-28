@@ -11,6 +11,8 @@ const productRoutes = require('./routes/product.routes')
 const photoRoutes = require('./routes/photo.routes')
 const loginRoutes = require('./routes/login.routes')
 
+const path = require('path');
+
 
 const session = require('express-session')
 const SessionStore = require('express-session-sequelize')(session.Store)
@@ -71,12 +73,19 @@ app.use('/login', loginRoutes);
 // Essa linha faz o servidor disponibilizar o acesso às imagens via URL!
 app.use(express.static('public'));
 
+// Essa linha exibe a imagem
+app.use('/public/uploads/:img', (req, res) => {
+    res.status(200).sendFile(path.join(__dirname, '/public/uploads', req.params.img));
+})
+
+
 //home for testing purposes
 app.use('/', (req, res, next) => {
     res.status(200).json({
         message: 'Bem-vindo(a) ao início da aplicação.'
     })
 })
+
 
 app.use('*', (req, res, next) => {
     next(errors.error404, req, res, next)
