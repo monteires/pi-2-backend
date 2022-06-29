@@ -71,12 +71,12 @@ app.use('/login', loginRoutes);
 
 
 // Essa linha faz o servidor disponibilizar o acesso às imagens via URL!
-app.use(express.static('public'));
+app.use(express.static('/public'));
 app.use(express.static('app'));
 
 // Essa linha exibe a imagem
 app.use('/public/uploads/:img', (req, res) => {
-    res.status(200).sendFile(path.join(__dirname, 'public/uploads', req.params.img));
+    res.status(200).sendFile(path.join(__dirname, '/public/uploads', req.params.img));
 
 })
 

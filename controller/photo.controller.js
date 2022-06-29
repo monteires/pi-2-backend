@@ -12,7 +12,7 @@ const multer = require('multer');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         // cb(null, 'public/uploads/');
-        cb(null, path.join(__dirname, 'public/uploads'));
+        cb(null, path.join(__dirname, '/public/uploads'));
 
     },
     filename: (req, file, cb) => {
@@ -58,7 +58,7 @@ const uploadPhotos = (typePhoto) => async (req, res) => {
                     const image = {};
                     image.id = req.file.filename;
 
-                    image.url = path.join(__dirname, 'public/uploads', image.id);
+                    image.url = path.join(__dirname, '/public/uploads', image.id);
 
                     // image.url = `https://backend-univesp.herokuapp.com/public/uploads/${image.id}`;
                     // console.log(`id do produto: ${req.params.id}`)
