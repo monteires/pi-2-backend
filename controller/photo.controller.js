@@ -74,7 +74,7 @@ const uploadPhotos = (typePhoto) => async (req, res) => {
                             }
                         }
                     )
-                    res.status(200).json({ error: 0, payload: { id: image.id, url: image.url } });
+                    return res.status(200).json({ error: 0, payload: { id: image.id, url: image.url } });
                 }
             });
 
