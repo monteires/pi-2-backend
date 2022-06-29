@@ -1,6 +1,7 @@
 const db = require('../models').db;
 const authenticateMiddleware = require('../middleware/authenticate.middleware')
 const uuid = require("uuid");
+const path = require('path');
 
 const Product = db.products
 const Op = db.Sequelize.Op
@@ -10,7 +11,9 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'public/uploads/');
+        // cb(null, 'public/uploads/');
+        cb(null, path.join(__dirname, '/../public/uploads'));
+
     },
     filename: (req, file, cb) => {
 

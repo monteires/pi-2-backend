@@ -78,9 +78,6 @@ app.use(express.static('app'));
 app.use('/public/uploads/:img', (req, res) => {
     res.status(200).sendFile(path.join(__dirname, '/../public/uploads', req.params.img));
 
-
-
-
 })
 
 
