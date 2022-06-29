@@ -18,11 +18,11 @@ router.post('/', userController.create)
 
 // update usuário
 // https://backend-univesp.herokuapp.com/users +req.boby
-router.put('/', authenticateMiddleware.verifyJWT, userController.update)
+router.put('/', userController.update)
 
 // delete usuário
 // https://backend-univesp.herokuapp.com/users
-router.delete('/', authenticateMiddleware.verifyJWT, userController.delete)
+router.delete('/', userController.delete)
 
 
 module.exports = router;

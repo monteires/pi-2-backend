@@ -10,17 +10,17 @@ router.get('/:id/one', productController.findOne)
 
 // criar produto
 // https://backend-univesp.herokuapp.com/products + req.body + token
-router.post('/', authenticateMiddleware.verifyJWT, productController.create)
+router.post('/', productController.create)
 
 // update produto
 // https://backend-univesp.herokuapp.com/products/{id do produto} + req.body + token
 // https://backend-univesp.herokuapp.com/products/1
-router.put('/:id', authenticateMiddleware.verifyJWT, productController.update)
+router.put('/:id', productController.update)
 
 // deletar produto
 // https://backend-univesp.herokuapp.com/products/{id do produto} + req.body + token
 // https://backend-univesp.herokuapp.com/products/1
-router.delete('/:id', authenticateMiddleware.verifyJWT, productController.delete)
+router.delete('/:id', productController.delete)
 
 // offset é quantos itens serão pulados
 // limit é quantos serão exibidos
@@ -48,6 +48,6 @@ router.get('/search/:search/:offset/:limit', productController.findAllByText)
 // produtos de um determinado usuário logado
 // https://backend-univesp.herokuapp.com/products/{offset}/{limit}/my
 // https://backend-univesp.herokuapp.com/products/0/50/my
-router.get('/:offset/:limit/my', authenticateMiddleware.verifyJWT, productController.findAllmy)
+router.get('/:offset/:limit/my', productController.findAllmy)
 
 module.exports = router
