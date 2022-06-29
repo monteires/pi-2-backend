@@ -155,7 +155,7 @@ exports.findAllmy = (req, res) => {
     offset: offset, // pula
     limit: limit, // lista essa quantidade
     where: {
-      userId: req.id,
+      userId: req.params.id,
     },
     order: [
       ["createdAt", "DESC"],
