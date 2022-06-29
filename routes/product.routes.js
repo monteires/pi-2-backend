@@ -61,9 +61,7 @@ router.get("/search/:search/:offset/:limit", productController.findAllByText);
 // https://backend-univesp.herokuapp.com/products/{offset}/{limit}/my
 // https://backend-univesp.herokuapp.com/products/0/50/my
 
-router.get('/:offset/:limit/my', productController.findAllmy)
-
-router.get("/:offset/:limit/my", productController.findAllmy);
+router.get('/:offset/:limit/:id', productController.findAllmy);
 
 
 module.exports = router;
